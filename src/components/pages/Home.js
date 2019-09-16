@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FilmList from '../ListFilms';
 import SearchAndFilter from '../SearchAndFilterPanelFilms';
 import axios from 'axios';
+import {GET_ALL_FILMS , DELETE_FILM } from '../../API'
 
 class HomePage extends Component {
   state = {
@@ -13,7 +14,7 @@ class HomePage extends Component {
   sortStatusByYear = 0;
 
   getAllFilms() {
-    axios('http://localhost:3000/api/films', {
+    axios(GET_ALL_FILMS(), {
       method: 'GET',
     }).then(res => {
       this.setState({ films: res.data, filteredFilms: res.data })
@@ -26,7 +27,7 @@ class HomePage extends Component {
 
 
   deleteFilm = (id) => {
-    axios(`http://localhost:3000/api/films/${id}`, {
+    axios(DELETE_FILM(id), {
       method: 'DELETE',
     }).then(res => {
       setTimeout(() => {

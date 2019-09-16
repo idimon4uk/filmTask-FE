@@ -5,7 +5,8 @@ import SaveIcon from '@material-ui/icons/Save';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import axios from 'axios';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { EDIT_FILM, GET_ALL_STARS, GET_FILM_DETAIL } from '../../API'; 
 
 class NewFilm extends Component {
 
@@ -23,7 +24,7 @@ class NewFilm extends Component {
     saveButtonAction(){
         console.log(this.state)
         let { id } = this.props.match.params;
-        axios.put(`http://127.0.0.1:3000/api/films/${id}`,this.state.film).then(res=>{
+        axios.put(EDIT_FILM(id),this.state.film).then(res=>{
             console.log(res.data,this.state)
         }).catch(err=>alert(err));
     }
@@ -31,7 +32,7 @@ class NewFilm extends Component {
     componentDidMount() {
         let { id } = this.props.match.params;
 
-        axios.get('http://127.0.0.1:3000/api/stars/').then(result => {
+        axios.get(GET_ALL_STARS()).then(result => {
             this.setState({
                 ...this.state,
                 avaliableStars: result.data.map(e => {
@@ -43,7 +44,7 @@ class NewFilm extends Component {
         }).catch(err=>alert(err));
 
 
-        axios.get(`http://127.0.0.1:3000/api/films/${id}`).then(res=>{
+        axios.get(GET_FILM_DETAIL(id)).then(res=>{
             this.setState({
                 ...this.state,
                 film:{

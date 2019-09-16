@@ -7,6 +7,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup'
 import axios from 'axios';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { Link } from 'react-router-dom';
+import {ADD_NEW_FILM, GET_ALL_STARS, UPLOAD_FILE} from '../../API';
 
 
 class NewFilm extends Component {
@@ -24,13 +25,13 @@ class NewFilm extends Component {
 
     saveButtonAction() {
         console.log(this.state)
-        axios.post('http://127.0.0.1:3000/api/films/', this.state.film).then(res => {
+        axios.post(ADD_NEW_FILM(), this.state.film).then(res => {
             console.log(res.data, this.state)
         })
     }
 
     componentDidMount() {
-        axios.get('http://127.0.0.1:3000/api/stars/').then(result => {
+        axios.get(GET_ALL_STARS()).then(result => {
             this.setState({
                 ...this.state,
                 avaliableStars: result.data.map(e => {
@@ -56,7 +57,7 @@ class NewFilm extends Component {
         data.append('file', e.target.files[0])
         // console.log(data);
         alert(`File is uploaded on server, it's can take some time`)
-        axios.post("http://127.0.0.1:3000/api/films/import", data, { 
+        axios.post(UPLOAD_FILE(), data, { 
         }).then(result=>{
             console.log(result.data);
             alert('done!')

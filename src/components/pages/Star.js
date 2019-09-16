@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FilmSimple from '../FilmSimple'
 import axios from 'axios';
+import { GET_STAR } from '../../API'
 
 class StarPage extends Component {
 
@@ -15,7 +16,7 @@ class StarPage extends Component {
 
         let { id } = this.props.match.params;
 
-        axios(`http://localhost:3000/api/stars/${id}`, {
+        axios(GET_STAR(id), {
             method: 'GET',
         }).then(res => {
             this.setState({ star: res.data })

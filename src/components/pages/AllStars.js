@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Star from '../Star';
 import SearchAndFilter from '../SearchAndFilterPanelStars'
+import {GET_ALL_STARS} from '../../API';
 
 
 class AllStars extends Component {
@@ -14,7 +15,7 @@ class AllStars extends Component {
     sortStatusByName = 0;
     sortStatusByPopularity = 0;
     componentWillMount() {
-        axios.get('http://127.0.0.1:3000/api/stars').then(result => {
+        axios.get(GET_ALL_STARS()).then(result => {
             this.setState({ stars: result.data, filterdedStars: result.data })
         })
     }
